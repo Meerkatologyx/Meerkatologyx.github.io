@@ -29,7 +29,7 @@
             max-width: 600px;
             width: 90%;
             background: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -40,7 +40,7 @@
             top: 0;
             display: flex;
             align-items: center;
-            background: #3a7ca5; /* Updated to a deeper, more appealing blue */
+            background: linear-gradient(45deg, #4CAF50, #66bb6a);
             padding: 20px;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -66,7 +66,7 @@
 
         .content h2 {
             font-size: 18px;
-            color: #3a7ca5;
+            color: #4CAF50;
             margin-bottom: 15px;
             font-weight: bold;
         }
@@ -91,7 +91,7 @@
 
         .app-item:hover {
             transform: translateY(-3px);
-            background: #f5f9ff;
+            background: #f0f8f0; /* Light green background on hover */
         }
 
         .app-item img {
@@ -111,13 +111,15 @@
             color: #ffffff;
             font-weight: bold;
             padding: 8px 15px;
-            background: #3a7ca5;
+            background: #4CAF50;
             border-radius: 5px;
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
         .app-item a:hover {
-            background: #2e5e85;
+            background: #45a049;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
