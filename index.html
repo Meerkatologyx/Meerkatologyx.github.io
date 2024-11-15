@@ -15,12 +15,13 @@
         /* Body styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+            background-color: #f0f2f5;
             color: #333;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
+            padding: 20px;
         }
 
         /* Main container */
@@ -28,18 +29,22 @@
             max-width: 600px;
             width: 90%;
             background: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             overflow: hidden;
         }
 
         /* Header styling */
         .header {
+            position: sticky;
+            top: 0;
             display: flex;
             align-items: center;
-            background: #4CAF50;
+            background: #3a7ca5; /* Updated to a deeper, more appealing blue */
             padding: 20px;
             color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
         }
 
         .header img {
@@ -61,10 +66,12 @@
 
         .content h2 {
             font-size: 18px;
-            color: #4CAF50;
-            margin-bottom: 10px;
+            color: #3a7ca5;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
 
+        /* App list styling */
         .app-list {
             list-style: none;
         }
@@ -75,13 +82,16 @@
             align-items: center;
             padding: 15px;
             margin-bottom: 10px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            transition: background 0.3s;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, background 0.3s;
         }
 
         .app-item:hover {
-            background: #f4f6f9;
+            transform: translateY(-3px);
+            background: #f5f9ff;
         }
 
         .app-item img {
@@ -91,18 +101,23 @@
             margin-right: 15px;
         }
 
+        .app-item span {
+            font-weight: bold;
+            color: #555;
+        }
+
         .app-item a {
             text-decoration: none;
-            color: #4CAF50;
+            color: #ffffff;
             font-weight: bold;
-            padding: 8px 12px;
-            background: #e0f2e0;
+            padding: 8px 15px;
+            background: #3a7ca5;
             border-radius: 5px;
             transition: background 0.3s;
         }
 
         .app-item a:hover {
-            background: #c3e6c3;
+            background: #2e5e85;
         }
     </style>
 </head>
