@@ -3,158 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meerkatology's IPA Library</title>
+    <title>3D Dice Roller</title>
     <style>
-        /* Basic reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Body styling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+            margin: 0;
+            background: radial-gradient(circle, #0d1117, #000000);
+            color: white;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 20px;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            perspective: 1000px;
         }
 
-        /* Main container */
         .container {
-            max-width: 600px;
-            width: 90%;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            text-align: center;
         }
 
-        /* Header styling */
-        .header {
-            position: sticky;
-            top: 0;
+        .title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cube {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            transition: transform 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+            margin: 50px auto;
+        }
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #ccc;
             display: flex;
+            justify-content: center;
             align-items: center;
-            background: linear-gradient(45deg, #4CAF50, #66bb6a);
-            padding: 20px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .front { transform: rotateY(0deg) translateZ(50px); }
+        .back { transform: rotateY(180deg) translateZ(50px); }
+        .left { transform: rotateY(-90deg) translateZ(50px); }
+        .right { transform: rotateY(90deg) translateZ(50px); }
+        .top { transform: rotateX(90deg) translateZ(50px); }
+        .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .one .dot { 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+        }
+        
+        .six .dot:nth-child(1) { top: 20%; left: 25%; }
+        .six .dot:nth-child(2) { top: 20%; right: 25%; }
+        .six .dot:nth-child(3) { top: 50%; left: 25%; transform: translateY(-50%); }
+        .six .dot:nth-child(4) { top: 50%; right: 25%; transform: translateY(-50%); }
+        .six .dot:nth-child(5) { bottom: 20%; left: 25%; }
+        .six .dot:nth-child(6) { bottom: 20%; right: 25%; }
+
+        button {
+            background: #1f6feb;
             color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-        }
-
-        .header img {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            margin-right: 15px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        /* Content styling */
-        .content {
-            padding: 20px;
-        }
-
-        .content h2 {
-            font-size: 18px;
-            color: #4CAF50;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        /* App list styling */
-        .app-list {
-            list-style: none;
-        }
-
-        .app-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s, background 0.3s;
-        }
-
-        .app-item:hover {
-            transform: translateY(-3px);
-            background: #f0f8f0; /* Light green background on hover */
-        }
-
-        .app-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            margin-right: 15px;
-        }
-
-        .app-item span {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .app-item a {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: bold;
-            padding: 8px 15px;
-            background: #4CAF50;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
             border-radius: 5px;
-            transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .app-item a:hover {
-            background: #45a049;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        button:hover {
+            background: #2c8fff;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header with app icon and title -->
-        <div class="header">
-            <img src="your-app-icon.png" alt="App Icon"> <!-- Replace with your icon's file name -->
-            <h1>Meerkatology's IPA Library</h1>
+        <h1 class="title">3D Dice Roller</h1>
+        <div class="cube" id="cube">
+            <div class="face front one">
+                <div class="dot"></div>
+            </div>
+            <div class="face back six">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="face left one">
+                <div class="dot"></div>
+            </div>
+            <div class="face right six">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="face top one">
+                <div class="dot"></div>
+            </div>
+            <div class="face bottom six">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
         </div>
-
-        <!-- Content area -->
-        <div class="content">
-            <h2>Available Apps</h2>
-            <ul class="app-list">
-                <!-- Example app item with icon and download button -->
-                <li class="app-item">
-                    <div style="display: flex; align-items: center;">
-                        <img src="app1-icon.png" alt="App 1 Icon"> <!-- Replace with the app's icon file name -->
-                        <span>App Name 1</span>
-                    </div>
-                    <a href="app1.ipa" download>Download</a> <!-- Replace with the actual .ipa file URL -->
-                </li>
-
-                <li class="app-item">
-                    <div style="display: flex; align-items: center;">
-                        <img src="app2-icon.png" alt="App 2 Icon"> <!-- Replace with the app's icon file name -->
-                        <span>App Name 2</span>
-                    </div>
-                    <a href="app2.ipa" download>Download</a> <!-- Replace with the actual .ipa file URL -->
-                </li>
-
-                <!-- Add more app items as needed -->
-            </ul>
-        </div>
+        <button onclick="rollDice()">Roll Dice</button>
     </div>
+
+    <script>
+        const cube = document.getElementById("cube");
+
+        function rollDice() {
+            // Force the dice to show either 1 or 6
+            const result = Math.random() < 0.5 ? 1 : 6;
+
+            // Define the fixed rotations for each dice result (1 or 6)
+            const rotations = {
+                1: { x: 0, y: 0, z: 0 }, // Rotation for face 1
+                6: { x: 180, y: 0, z: 0 } // Rotation for face 6
+            };
+
+            // Randomize rotation angles for added spin effect
+            const extraSpins = {
+                x: Math.floor(Math.random() * 4) * 90, // Add more variety to the spin
+                y: Math.floor(Math.random() * 4) * 90,
+                z: Math.floor(Math.random() * 4) * 90
+            };
+
+            // Apply the appropriate rotation based on the result
+            const { x, y, z } = rotations[result];
+
+            // Set the cube's transform property to rotate it to show either 1 or 6
+            cube.style.transform = `rotateX(${x + extraSpins.x}deg) rotateY(${y + extraSpins.y}deg) rotateZ(${z + extraSpins.z}deg)`;
+        }
+    </script>
 </body>
 </html>
