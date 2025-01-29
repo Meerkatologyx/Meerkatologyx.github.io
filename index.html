@@ -32,7 +32,7 @@
             position: relative;
             transform-style: preserve-3d;
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-            transition: transform 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
             margin: 50px auto;
         }
 
@@ -69,7 +69,25 @@
             left: 50%; 
             transform: translate(-50%, -50%); 
         }
-        
+
+        .two .dot:nth-child(1) { top: 25%; left: 25%; }
+        .two .dot:nth-child(2) { bottom: 25%; right: 25%; }
+
+        .three .dot:nth-child(1) { top: 25%; left: 25%; }
+        .three .dot:nth-child(2) { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .three .dot:nth-child(3) { bottom: 25%; right: 25%; }
+
+        .four .dot:nth-child(1) { top: 25%; left: 25%; }
+        .four .dot:nth-child(2) { top: 25%; right: 25%; }
+        .four .dot:nth-child(3) { bottom: 25%; left: 25%; }
+        .four .dot:nth-child(4) { bottom: 25%; right: 25%; }
+
+        .five .dot:nth-child(1) { top: 25%; left: 25%; }
+        .five .dot:nth-child(2) { top: 25%; right: 25%; }
+        .five .dot:nth-child(3) { bottom: 25%; left: 25%; }
+        .five .dot:nth-child(4) { bottom: 25%; right: 25%; }
+        .five .dot:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
         .six .dot:nth-child(1) { top: 20%; left: 25%; }
         .six .dot:nth-child(2) { top: 20%; right: 25%; }
         .six .dot:nth-child(3) { top: 50%; left: 25%; transform: translateY(-50%); }
@@ -114,23 +132,23 @@
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-            <div class="face left one">
-                <div class="dot"></div>
-            </div>
-            <div class="face right six">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <div class="face left two">
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-            <div class="face top one">
+            <div class="face right five">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-            <div class="face bottom six">
+            <div class="face top three">
                 <div class="dot"></div>
                 <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="face bottom four">
                 <div class="dot"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -144,27 +162,24 @@
         const cube = document.getElementById("cube");
 
         function rollDice() {
-            // Force the dice to show either 1 or 6
             const result = Math.random() < 0.5 ? 1 : 6;
-
-            // Define the fixed rotations for each dice result (1 or 6)
             const rotations = {
-                1: { x: 0, y: 0, z: 0 }, // Rotation for face 1
-                6: { x: 180, y: 0, z: 0 } // Rotation for face 6
+                1: { x: 0, y: 0, z: 0 },
+                6: { x: 180, y: 0, z: 0 }
             };
 
-            // Randomize rotation angles for added spin effect
             const extraSpins = {
-                x: Math.floor(Math.random() * 4) * 90, // Add more variety to the spin
-                y: Math.floor(Math.random() * 4) * 90,
-                z: Math.floor(Math.random() * 4) * 90
+                x: Math.floor(Math.random() * 10) * 360,
+                y: Math.floor(Math.random() * 10) * 360,
+                z: Math.floor(Math.random() * 10) * 360
             };
 
-            // Apply the appropriate rotation based on the result
             const { x, y, z } = rotations[result];
-
-            // Set the cube's transform property to rotate it to show either 1 or 6
-            cube.style.transform = `rotateX(${x + extraSpins.x}deg) rotateY(${y + extraSpins.y}deg) rotateZ(${z + extraSpins.z}deg)`;
+            cube.style.transform = `
+                rotateX(${x + extraSpins.x}deg) 
+                rotateY(${y + extraSpins.y}deg) 
+                rotateZ(${z + extraSpins.z}deg)
+            `;
         }
     </script>
 </body>
